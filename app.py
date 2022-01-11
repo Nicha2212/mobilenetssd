@@ -149,14 +149,20 @@ def event_handle(event,json_line):
 
     if msgType == "text":
         msg = str(event["message"]["text"])
-        if msg == "สวัสดี":
+        if (msg == "สวัสดี") :
             replyObj = TextSendMessage(text="จ้า ดีด้วยจ้า")
             line_bot_api.reply_message(rtoken, replyObj)
-        elif msg == "กินข้าวไหม":
+        elif (msg == "กินข้าวไหม") :
             replyObj = TextSendMessage(text="ไม่ล่ะ ขอเป็นไก่ทอด")
             line_bot_api.reply_message(rtoken, replyObj)
-        elif msg == "ไปเที่ยวกันไหม":
+        elif (msg == "ไปเที่ยวกันไหม") :
             replyObj = TextSendMessage(text="ไปๆดิ")
+            line_bot_api.reply_message(rtoken, replyObj)
+        elif msg == "covid" :
+            url = "https://covid19.ddc.moph.go.th/api/Cases/today-cases-all"
+            response = requests.get(url)
+            response = response.json()
+            replyObj = TextSendMessage(text=str(response))
             line_bot_api.reply_message(rtoken, replyObj)
         else :    
             headers = request.headers
